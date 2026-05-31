@@ -6,7 +6,7 @@ frontend:
   namespace: user-management
   image:
     repository: devkrishan001/frontend
-    tag: "v1"
+    tag: "v2"
     pullPolicy: Always
   replicas: 2
   port: 80
@@ -28,5 +28,4 @@ frontend:
   pdb:
     enabled: true
     minAvailable: 1
-
 namespace: user-management
