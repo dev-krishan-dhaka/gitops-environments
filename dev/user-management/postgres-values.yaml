@@ -1,26 +1,28 @@
 # Dev Environment — PostgreSQL
-# Not auto-updated — manual changes only
 
-name: postgres
+postgres:
+  name: postgres
+  image:
+    repository: postgres
+    tag: "15-alpine"
+  replicas: 1
+  port: 5432
+  service:
+    type: ClusterIP
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  pvc:
+    enabled: true
+    storageSize: "1Gi"
+  credentials:
+    database: userdb
+    username: postgres
+    password: postgres123
+    jwtSecret: myjwtsecret
+
 namespace: user-management
-
-image:
-  repository: postgres
-  tag: "15-alpine"
-
-replicas: 1
-port: 5432
-
-service:
-  type: ClusterIP
-
-pvc:
-  enabled: true
-  storageSize: "1Gi"
-  storageClass: "local-path"
-
-credentials:
-  database: userdb
-  username: postgres
-  password: postgres123
-  jwtSecret: myjwtsecret

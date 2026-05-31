@@ -1,29 +1,32 @@
 # Dev Environment — Frontend
 # Auto-updated by Jenkins CI
 
-name: frontend
+frontend:
+  name: frontend
+  namespace: user-management
+  image:
+    repository: devkrishan001/frontend
+    tag: "v1"
+    pullPolicy: Always
+  replicas: 2
+  port: 80
+  service:
+    type: NodePort
+    nodePort: 30080
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 4
+    cpuThreshold: 50
+  pdb:
+    enabled: true
+    minAvailable: 1
+
 namespace: user-management
-image:
-  repository: devkrishan001/frontend
-  tag: "v1"
-  pullPolicy: Always
-replicas: 2
-port: 80
-service:
-  type: NodePort
-  nodePort: 30080
-resources:
-  requests:
-    cpu: "100m"
-    memory: "128Mi"
-  limits:
-    cpu: "300m"
-    memory: "256Mi"
-hpa:
-  enabled: true
-  minReplicas: 2
-  maxReplicas: 4
-  cpuThreshold: 50
-pdb:
-  enabled: true
-  minAvailable: 1
