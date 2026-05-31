@@ -6,13 +6,16 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/dev-krishan-dhaka/platform-helm-charts
-    targetRevision: HEAD
-    path: charts/backend-service
-    helm:
-      valueFiles:
-        - https://raw.githubusercontent.com/dev-krishan-dhaka/gitops-environments/main/dev/user-management/backend-values.yaml
+  sources:
+    - repoURL: https://github.com/dev-krishan-dhaka/platform-helm-charts
+      targetRevision: HEAD
+      path: charts/backend-service
+      helm:
+        valueFiles:
+          - $values/dev/user-management/backend-values.yaml
+    - repoURL: https://github.com/dev-krishan-dhaka/gitops-environments
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: user-management
@@ -36,13 +39,16 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/dev-krishan-dhaka/platform-helm-charts
-    targetRevision: HEAD
-    path: charts/frontend-service
-    helm:
-      valueFiles:
-        - https://raw.githubusercontent.com/dev-krishan-dhaka/gitops-environments/main/dev/user-management/frontend-values.yaml
+  sources:
+    - repoURL: https://github.com/dev-krishan-dhaka/platform-helm-charts
+      targetRevision: HEAD
+      path: charts/frontend-service
+      helm:
+        valueFiles:
+          - $values/dev/user-management/frontend-values.yaml
+    - repoURL: https://github.com/dev-krishan-dhaka/gitops-environments
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: user-management
@@ -66,13 +72,16 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/dev-krishan-dhaka/platform-helm-charts
-    targetRevision: HEAD
-    path: charts/postgres
-    helm:
-      valueFiles:
-        - https://raw.githubusercontent.com/dev-krishan-dhaka/gitops-environments/main/dev/user-management/postgres-values.yaml
+  sources:
+    - repoURL: https://github.com/dev-krishan-dhaka/platform-helm-charts
+      targetRevision: HEAD
+      path: charts/postgres
+      helm:
+        valueFiles:
+          - $values/dev/user-management/postgres-values.yaml
+    - repoURL: https://github.com/dev-krishan-dhaka/gitops-environments
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: user-management
