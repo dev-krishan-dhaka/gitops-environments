@@ -1,0 +1,39 @@
+# Dev Environment — Backend
+# Auto-updated by Jenkins CI
+
+name: backend
+namespace: user-management
+
+image:
+  repository: devkrishan001/backend
+  tag: "v1"
+  pullPolicy: Always
+
+replicas: 2
+port: 5000
+
+service:
+  type: NodePort
+  nodePort: 30081
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  cpuThreshold: 50
+
+pdb:
+  enabled: true
+  minAvailable: 1
+
+env:
+  DB_HOST: postgres-service
+  DB_PORT: "5432"
