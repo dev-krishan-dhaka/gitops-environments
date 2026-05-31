@@ -6,7 +6,7 @@ frontend:
   namespace: user-management
   image:
     repository: devkrishan001/frontend
-    tag: "v2"
+    tag: "v3"
     pullPolicy: Always
   replicas: 2
   port: 80
