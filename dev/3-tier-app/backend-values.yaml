@@ -30,5 +30,4 @@ backend:
   env:
     DB_HOST: mysql-service
     DB_PORT: "3306"
-
 namespace: three-tier-app
