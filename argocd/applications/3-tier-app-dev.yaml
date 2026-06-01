@@ -9,7 +9,7 @@ spec:
   sources:
     - repoURL: https://dev-krishan-dhaka.github.io/platform-helm-charts
       chart: backend-service
-      targetRevision: "1.0.2"
+      targetRevision: "1.0.3"
       helm:
         valueFiles:
           - $values/dev/3-tier-app/backend-values.yaml
