@@ -74,8 +74,8 @@ spec:
   project: default
   sources:
     - repoURL: https://dev-krishan-dhaka.github.io/platform-helm-charts
-      chart: mysql
-      targetRevision: "1.0.0"
+      {chart: mysql}
+      targetRevision: "1.0.1"
       helm:
         valueFiles:
           - $values/dev/3-tier-app/mysql-values.yaml
