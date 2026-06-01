@@ -27,5 +27,4 @@ frontend:
   pdb:
     enabled: true
     minAvailable: 1
-
 namespace: three-tier-app
