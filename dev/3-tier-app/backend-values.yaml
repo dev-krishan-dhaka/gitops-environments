@@ -1,6 +1,3 @@
-# 3-tier-app Backend (Java Spring Boot)
-# Auto-updated by Jenkins CI
-
 backend:
   name: backend
   image:
@@ -30,4 +27,10 @@ backend:
   env:
     DB_HOST: mysql-service
     DB_PORT: "3306"
+    DB_NAME: crud_db
+    secretRef:
+      name: mysql-secret
+      userKey: MYSQL_ROOT_PASSWORD
+      passwordKey: MYSQL_ROOT_PASSWORD
+
 namespace: three-tier-app
