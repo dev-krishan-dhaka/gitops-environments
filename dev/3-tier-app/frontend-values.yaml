@@ -7,7 +7,7 @@ frontend:
     repository: devkrishan001/3tier-frontend
     tag: "v2"
     pullPolicy: Always
-  replicas: 2
+  replicas: 1
   port: 80
   service:
     type: NodePort
@@ -20,7 +20,7 @@ frontend:
       cpu: "300m"
       memory: "256Mi"
   hpa:
-    enabled: true
+    enabled: false
     minReplicas: 2
     maxReplicas: 4
     cpuThreshold: 50
