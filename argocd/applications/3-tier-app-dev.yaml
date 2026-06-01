@@ -1,0 +1,115 @@
+# Backend
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 3tier-backend-dev
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://dev-krishan-dhaka.github.io/platform-helm-charts
+      chart: backend-service
+      targetRevision: "1.0.2"
+      helm:
+        valueFiles:
+          - $values/dev/3-tier-app/backend-values.yaml
+    - repoURL: https://github.com/dev-krishan-dhaka/gitops-environments
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: three-tier-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas
+---
+# Frontend
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 3tier-frontend-dev
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://dev-krishan-dhaka.github.io/platform-helm-charts
+      chart: frontend-service
+      targetRevision: "1.0.2"
+      helm:
+        valueFiles:
+          - $values/dev/3-tier-app/frontend-values.yaml
+    - repoURL: https://github.com/dev-krishan-dhaka/gitops-environments
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: three-tier-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas
+---
+# MySQL
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 3tier-mysql-dev
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://dev-krishan-dhaka.github.io/platform-helm-charts
+      chart: mysql
+      targetRevision: "1.0.2"
+      helm:
+        valueFiles:
+          - $values/dev/3-tier-app/mysql-values.yaml
+    - repoURL: https://github.com/dev-krishan-dhaka/gitops-environments
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: three-tier-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+# Secrets
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 3tier-secrets-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dev-krishan-dhaka/gitops-environments
+    targetRevision: HEAD
+    path: dev/3-tier-app/secrets
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: three-tier-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
